@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="JS/three.js"></script>
+    <script>
+        function init(){
+            var renderer = new THREE.WebGLRenderer({canvas:document.getElementById('mainCanvas')});
+            renderer.setClearColor(0x000000);
+            var scene = new  THREE.Scene();
+
+            var camera  = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100);
+            camera.position.set(25,25,25);
+            camera.lookAt(new THREE.Vector3(0,0,0));
+            scene.add(camera);
+
+            var light = new THREE.PointLight(0xffffff, 1, 100);
+            light.position.set(10,15,15);
+            scene.add(light);
+
+        /*    var material = new THREE.MeshLambertMaterial({
+                color:0xffff00
+                //,emissive:0xff0000
+            }); */
+
+        /*    var material = new THREE.MeshPhongMaterial({
+                color:0xff0000
+                ,specular:0xffff00
+                ,shininess:500
+            }); */
+
+         /*   var material = new THREE.MeshNormalMaterial();*/
+
+        /*    var texture = new THREE.ImageUtils.loadTexture('textures/UV_Grid.jpg',{},function(){
+                renderer.render(scene,camera);
+            });
+            var material = new THREE.MeshLambertMaterial({
+               map:texture
+            });*/
+
+           /* var materials = [];
+            for(var i = 0; i<6; i++){
+                materials.push(new THREE.MeshBasicMaterial({
+                    map: THREE.ImageUtils.loadTexture('textures/Cube/' + i + '.jpg', {}, function(){
+                      renderer.render(scene, camera);
+                    }),
+                    overdraw: true
+                }));
+            }*/
+
+          /*  var texture = new THREE.ImageUtils.loadTexture('textures/UV_Grid.jpg', {}, function(){
+                renderer.render(scene, camera);
+            });
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(4, 4);
+            var material = new THREE.MeshLambertMaterial({
+                map:texture
+            });*/
+
+            /*var cube = new THREE.Mesh(new THREE.BoxGeometry(5,5,5),material);
+            scene.add(cube);*/
+
+            /*var sphere = new THREE.Mesh(new THREE.SphereGeometry(3, 20, 8),material);
+            scene.add(sphere);*/
+
+            /*var cube = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5), new THREE.MeshFaceMaterial(materials));
+            scene.add(cube);*/
+
+            /*var plane = new THREE.Mesh(new THREE.PlaneGeometry(12, 12),material);
+            scene.add(plane);*/
+
+            //如果不指定material，每次分配一个wireFrame为false的颜色随机的material，刷新会导致颜色变化
+            /*var cube = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3));
+            scene.add(cube);*/
+
+            renderer.render(scene,camera);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="mainCanvas" height="300px" width="400px"></canvas>
+</body>
+</html>

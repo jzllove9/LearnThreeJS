@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="JS/three.js"></script>
+    <script type="text/javascript" src="JS/loader/MTLLoader.js"></script>
+    <script type="text/javascript" src="JS/loader/OBJMTLLoader.js"></script>
+    <script type="text/javascript" src="JS/stats.min.js"></script>
+
+    <script>
+        var scene = null;
+        var camera = null;
+        var renderer = null;
+        var stats = null;
+        var loader = null;
+        var mesh = null;
+        var id = null;
+
+        function init() {
+            stats = new Stats();
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.right = '0px';
+            stats.domElement.style.top = '0px';
+            document.body.appendChild(stats.domElement);
+
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            scene = new THREE.Scene();
+
+            camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100);
+            camera.position.set(15, 25, 25);
+            camera.lookAt(new THREE.Vector3(0, 5, 0));
+            scene.add(camera);
+
+            loader = new THREE.OBJMTLLoader();
+            loader.load('model/pot4.obj', 'model/pot4.mtl', function( object ){
+                mesh = object;
+                scene.add(object);
+            });
+
+            var light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(20, 10, 5);
+            scene.add(light);
+
+            id = setInterval(draw, 20);
+        }
+
+        function draw(){
+            renderer.render(scene, camera);
+            mesh.rotation.y += 0.01;
+            if(mesh.rotation.y > Math.PI * 2){
+                mesh.rotation.y -= Math.PI * 2;
+            }
+            stats.update();
+        }
+    </script>
+</head>
+<body onload="init()">
+    <canvas id="mainCanvas" width="400px" height="300px"></canvas>
+</body>
+</html>
